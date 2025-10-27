@@ -1,0 +1,304 @@
+body {
+    margin: 0;
+    min-height: 100vh; /* Allow scrolling */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom, #ffb6c1, #dda0dd); /* Pink to purple gradient */
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    text-align: center;
+    position: relative;
+    width: 100%;
+    max-width: 1200px; /* Limit max width for large screens */
+    padding: 2rem 1rem;
+    box-sizing: border-box;
+}
+
+/* Cake Styling - Clean with gradients, borders, shadows */
+.cake {
+    width: 320px;
+    height: 220px;
+    position: relative;
+    margin: 120px 20px auto;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.cake-layer {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.cake-bottom {
+    width: 320px;
+    height: 80px;
+    bottom: 0;
+    background: linear-gradient(#c71585, #a01070);
+    border: 1px solid #90085f;
+}
+
+.cake-middle {
+    width: 280px;
+    height: 70px;
+    bottom: 80px;
+    background: linear-gradient(#dda0dd, #bb7bbb);
+    border: 1px solid #a06ba0;
+}
+
+.cake-top {
+    width: 240px;
+    height: 60px;
+    bottom: 150px;
+    background: linear-gradient(#ff69b4, #e8509e);
+    border: 1px solid #d43c8b;
+}
+
+.frosting {
+    position: absolute;
+    width: 260px;
+    height: 25px;
+    background: linear-gradient(#fff0f5, #ffe0f0);
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border: 1px solid #f0d0e0;
+    position: relative;
+}
+
+.sprinkle {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.sprinkle:nth-child(1) { top: 5px; left: 30px; background: #ff0000; }
+.sprinkle:nth-child(2) { top: 10px; left: 100px; background: #00ff00; }
+.sprinkle:nth-child(3) { top: 5px; right: 30px; background: #0000ff; }
+
+/* Candle Styling - Responsive */
+.candle {
+    position: absolute;
+    width: 3vw;
+    max-width: 12px;
+    height: 12.5vw;
+    max-height: 50px;
+    background: repeating-linear-gradient(-45deg, #f5f5f5, #f5f5f5 1.25vw, #e0e0e0 1.25vw, #e0e0e0 2.5vw);
+    border: 1px solid #ccc;
+    border-radius: 0.5vw;
+    top: -20vw;
+    max-height: -80px;
+    box-shadow: 0 0.5vw 1vw rgba(0, 0, 0, 0.1);
+    z-index: 2;
+}
+
+#candle1 { left: 28.125%; } /* Adjusted for cake width */
+#candle2 { left: 40.625%; }
+#candle3 { left: 53.125%; }
+#candle4 { left: 65.625%; }
+
+.wick {
+    width: 0.5vw;
+    height: 2vw;
+    max-width: 2px;
+    max-height: 8px;
+    background: #333;
+    position: absolute;
+    top: -2.5vw;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.flame {
+    width: 3vw;
+    max-width: 12px;
+    height: 4.5vw;
+    max-height: 18px;
+    border-radius: 50% 50% 0 0;
+    position: absolute;
+    top: -7vw;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: flicker 0.5s infinite alternate;
+    box-shadow: 0 0 2.5vw rgba(255, 165, 0, 0.5);
+}
+
+.flame-orange { background: radial-gradient(circle, #ff4500 30%, #ffff00 70%); }
+.flame-yellow { background: radial-gradient(circle, #ffff00 30%, #ffa500 70%); }
+.flame-blue { background: radial-gradient(circle, #00b7eb 30%, #1e90ff 70%); }
+
+@keyframes flicker {
+    0% { transform: translateX(-50%) scale(1); }
+    100% { transform: translateX(-50%) scale(1.2); }
+}
+
+.flame.extinguished {
+    animation: extinguish 1s forwards;
+}
+
+@keyframes extinguish {
+    0% { opacity: 1; transform: translateX(-50%) scale(1); }
+    100% { opacity: 0; transform: translateX(-50%) scale(0); height: 0; }
+}
+
+/* Balloon Styling - Responsive, spread from center-right */
+#balloon-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 3;
+}
+
+.balloon {
+    position: absolute;
+    height: 37.5vw;
+    width: 31.25vw;
+    max-height: 150px;
+    max-width: 125px;
+    border-radius: 75% 75% 70% 70%;
+    opacity: 0;
+    transition: opacity 0.5s;
+    box-shadow: 0 0 6.25vw rgba(255, 255, 255, 1);
+}
+
+.balloon:before {
+    content: "";
+    height: 18.75vw;
+    max-height: 75px;
+    width: 0.25vw;
+    background-color: #FDFD96;
+    display: block;
+    position: absolute;
+    top: 31.25vw;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.balloon:after {
+    content: "▲";
+    text-align: center;
+    display: block;
+    position: absolute;
+    color: inherit;
+    top: 30vw;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.balloon.visible {
+    opacity: 0.9;
+    animation: float-high 8s ease-in forwards;
+}
+
+.balloon.popped {
+    opacity: 0 !important;
+    transform: scale(0);
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+@keyframes float-high {
+    from { transform: translateY(100vh) translateX(0); opacity: 0.9; }
+    to { transform: translateY(-400vh) translateX(var(--spread)); opacity: 0.5; }
+}
+
+/* Message Styling - Responsive */
+#message {
+    display: none;
+    font-size: 1rem;
+    color: #101010;
+    text-shadow: 0.5vw 0.5vw 1vw #fff;
+    margin-top: 2rem;
+    z-index: 1;
+    padding: 0 1rem;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Button Styling - Responsive */
+button {
+    padding: 1rem 2rem;
+    font-size: 3.5vw;
+    max-font-size: 1.3rem;
+    background-color: #ff69b4;
+    color: white;
+    border: none;
+    border-radius: 1rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background-color 0.3s;
+    z-index: 5;
+}
+
+button:hover {
+    background-color: #ff1493;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Audio Styling */
+audio {
+    display: none;
+}
+
+/* Media Queries for Fine-Tuning */
+@media (max-width: 600px) {
+    .cake {
+        width: 90vw;
+        height: 61.875vw;
+    }
+    .candle {
+        width: 3.5vw;
+        height: 14vw;
+        top: -22.5vw;
+    }
+    .flame {
+        width: 3.5vw;
+        height: 5.25vw;
+        top: -8vw;
+    }
+    .wick {
+        width: 0.6vw;
+        height: 2.4vw;
+        top: -3vw;
+    }
+    .balloon {
+        height: 30vw;
+        width: 25vw;
+    }
+    .balloon:before {
+        height: 15vw;
+        top: 25vw;
+    }
+    .balloon:after {
+        top: 24vw;
+    }
+    #message {
+        font-size: 6vw;
+    }
+    button {
+        font-size: 4vw;
+        padding: 0.8rem 1.6rem;
+    }
+}
